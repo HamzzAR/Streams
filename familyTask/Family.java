@@ -20,6 +20,8 @@ public class Family {
 				res = false;
 			}
 		}
+		
+		
 		return res;
 	}
 	
@@ -34,11 +36,45 @@ public class Family {
 				res = false;
 			}
 		}
+		
 		return res;
 	}
 	
+	public boolean isMale(String name) {
+		boolean res = false;
+		for (People m : people) {
+			if(m.getName().equals(name)){
+				if(!m.getGender().equals("") && m.getGender().equals("male")){
+					res = true;
+					break;
+				}else{
+					res = false;
+					break;
+				}
+				
+			}
+		}
+		
+		return res;
+	}
+	
+	public boolean isFemale(String name) {
+		boolean res = false;
+		for (People m : people) {
+			if(m.getName().equals(name)){
+				if(!m.getGender().equals("") && m.getGender().equals("female")){
+					res = true;
+					break;
+				}else{
+					res = false;
+					break;
+				}
+			}
+		}
+		return res;
+	}
 
-
+	
 	public static void main(String[] args) {
 		new Family();
 	}
