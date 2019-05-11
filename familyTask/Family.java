@@ -4,14 +4,13 @@ import java.util.HashMap;
 
 public class Family {
 
-	ArrayList<People> people = new ArrayList<People>();
+	ArrayList<Person> people = new ArrayList<Person>();
 
-	HashMap<Object, Object> relationships = new HashMap<Object, Object>();
 	
 
 	public boolean male(String name) {
 		boolean res = false;
-		for (People m : people) {
+		for (Person m : people) {
 			if(m.getName().equals(name)){
 				m.setGender("male");
 				res = true;
@@ -27,7 +26,7 @@ public class Family {
 	
 	public boolean female(String name) {
 		boolean res = false;
-		for (People m : people) {
+		for (Person m : people) {
 			if(m.getName().equals(name)){
 				m.setGender("female");
 				res = true;
@@ -42,7 +41,7 @@ public class Family {
 	
 	public boolean isMale(String name) {
 		boolean res = false;
-		for (People m : people) {
+		for (Person m : people) {
 			if(m.getName().equals(name)){
 				if(!m.getGender().equals("") && m.getGender().equals("male")){
 					res = true;
@@ -60,7 +59,7 @@ public class Family {
 	
 	public boolean isFemale(String name) {
 		boolean res = false;
-		for (People m : people) {
+		for (Person m : people) {
 			if(m.getName().equals(name)){
 				if(!m.getGender().equals("") && m.getGender().equals("female")){
 					res = true;
@@ -69,45 +68,44 @@ public class Family {
 					res = false;
 					break;
 				}
-				
 			}
 		}
 		return res;
 	}
 	
 	public boolean setParent(String childName, String parentName){
-		boolean res = true;
-		for (People m : people) {
-			if(m.getName().equals(childName) || m.getName().equals(parentName)){
-				res = false;
-				break;
-			}else{
-				res = true;
-			}
+		
+		Person child = new Person(childName);
+		Person parent = new Person(parentName);
+		if(findPerson(childName) == false){
+			people.add(child);
 		}
-		if(res == true){
-			people.add(new People(childName));
-			people.add(new People(parentName));
-			relationships.put(childName, parentName);
+		if(findPerson(parentName) == false){
+			people.add(child);
 		}
 		
-		return res;
+		people.add(parent);
+		parent.setChildren(child);
+		
+		
+		return false;
 	}
 	
-//	public List getChildren(String name) {
-//		
-//	}
+	public boolean findPerson(String name) {
+		boolean found = false;
+		for (Person p : people) {
+			if(p.getName().equals(name)){
+				found = true;
+				break;
+			}else{
+				found = false;
+			}
+		}
+		
+		return found;
+	}
 	
 	public static void main(String[] args) {
-		Family fam = new Family();
-		System.out.println(fam.setParent("Hamza", "ammi"));
-		System.out.println(fam.setParent("Hamza", "Abdul"));
-		System.out.println(fam.male("Hamza"));
-		System.out.println(fam.female("ammi"));
-		System.out.println(fam.isFemale("Hamza"));
-		System.out.println(fam.isMale("Hamza"));
-		System.out.println(fam.isMale("ammi"));
-		System.out.println(fam.isFemale("ammi"));
 	}
 
 }
