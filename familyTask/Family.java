@@ -69,14 +69,45 @@ public class Family {
 					res = false;
 					break;
 				}
+				
 			}
 		}
 		return res;
 	}
-
+	
+	public boolean setParent(String childName, String parentName){
+		boolean res = true;
+		for (People m : people) {
+			if(m.getName().equals(childName) || m.getName().equals(parentName)){
+				res = false;
+				break;
+			}else{
+				res = true;
+			}
+		}
+		if(res == true){
+			people.add(new People(childName));
+			people.add(new People(parentName));
+			relationships.put(childName, parentName);
+		}
+		
+		return res;
+	}
+	
+//	public List getChildren(String name) {
+//		
+//	}
 	
 	public static void main(String[] args) {
-		new Family();
+		Family fam = new Family();
+		System.out.println(fam.setParent("Hamza", "ammi"));
+		System.out.println(fam.setParent("Hamza", "Abdul"));
+		System.out.println(fam.male("Hamza"));
+		System.out.println(fam.female("ammi"));
+		System.out.println(fam.isFemale("Hamza"));
+		System.out.println(fam.isMale("Hamza"));
+		System.out.println(fam.isMale("ammi"));
+		System.out.println(fam.isFemale("ammi"));
 	}
 
 }
