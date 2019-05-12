@@ -3,6 +3,8 @@ import java.util.ArrayList;
 
 public class Person {
 	ArrayList<Person> children;
+	ArrayList<Person> parent;
+	
 	Person father;
 	Person mother;
 	
@@ -11,8 +13,10 @@ public class Person {
 
 	public Person(String n) {
 		children = new ArrayList<Person>();
+		parent = new ArrayList<Person>();
 		name = n;
 		gender = "";
+		
 	}
 	
 	public String getGender() {
@@ -42,6 +46,27 @@ public class Person {
 		return children;
 	}
 	
-
+	public ArrayList<Person> getParent() {
+		return parent;
+	}
+	public void setParent(Person parent) {
+		this.parent.add(parent);
+	}
+	
+	public boolean hasFather() {
+		if (this.father == null){
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
+	public boolean hasMother() {
+		if (this.mother == null){
+			return false;
+		}else{
+			return true;
+		}
+	}
 
 }
