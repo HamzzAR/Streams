@@ -1,12 +1,9 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 public class Family {
 
-	ArrayList<Person> people = new ArrayList<Person>();
-
-	
+	static ArrayList<Person> people = new ArrayList<Person>();
 
 	public boolean male(String name) {
 		boolean res = false;
@@ -76,36 +73,33 @@ public class Family {
 	public boolean setParent(String childName, String parentName){
 		
 		Person child = new Person(childName);
-		Person parent = new Person(parentName);
-		if(findPerson(childName) == false){
+		if(findPerson(childName).getName().equals("notFound")){
+			System.out.println(childName + " child added");
 			people.add(child);
 		}
-		if(findPerson(parentName) == false){
-			people.add(child);
+		if(findPerson(parentName).getName().equals("notFound")){
+			Person parent = new Person(parentName); 
+			System.out.println(parentName + " parent added");
+			people.add(parent);
+			parent.setChildren(child);
+			
+		}else{
+			findPerson(parentName).setChildren(child);
 		}
-		
-		people.add(parent);
-		parent.setChildren(child);
-		
 		
 		return false;
 	}
 	
-	public boolean findPerson(String name) {
-		boolean found = false;
+	public Person findPerson(String name) {
+		Person person = new Person("notFound");
 		for (Person p : people) {
 			if(p.getName().equals(name)){
-				found = true;
+				person = p;
 				break;
-			}else{
-				found = false;
 			}
 		}
 		
-		return found;
+		return person;
 	}
 	
-	public static void main(String[] args) {
-	}
-
 }

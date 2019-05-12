@@ -38,6 +38,10 @@ public class Person {
 	public void setMother(Person mother) {
 		this.mother = mother;
 	}
+	public ArrayList<Person> getChildren() {
+		return children;
+	}
+	
 
 
 }
