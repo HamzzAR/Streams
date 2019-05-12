@@ -92,27 +92,43 @@ public class Family {
 	public boolean setParent(String childName, String parentName){
 		boolean done = false;
 		Person child = new Person(childName);
-		if(findPerson(childName).getName().equals("notFound")){
-			System.out.println(childName + " child added");
+		Person foundChild = findPerson(childName);
+		if(foundChild.getName().equals("notFound")){
 			people.add(child);
 		}
 		
-		Person parent;
-		if(findPerson(parentName).getName().equals("notFound")){
-			parent = new Person(parentName); 
-			System.out.println(parentName + " parent added");
+		Person parent = new Person(parentName); 
+		Person foundParent = findPerson(parentName);
+		if(foundParent.getName().equals("notFound")){
 			people.add(parent);
-			parent.setChildren(child);
+			if(foundChild.getName().equals("notFound")){
+				parent.setChildren(child);
+			}else{
+				parent.setChildren(foundChild);
+			}
+			
+			if(foundChild.getName().equals("notFound")){
+				if(child.getParent().size() < 3){
+					child.setParent(parent);
+				}
+			}else{
+				foundChild.setParent(parent);
+			}
+			
 			done = true;
 		}else{
-			parent = findPerson(parentName);
-			parent.setChildren(child);
+			if(foundChild.getName().equals("notFound")){
+				foundParent.setChildren(child);
+				if(child.getParent().size() < 3){
+					child.setParent(foundParent);
+				}
+			}else{
+				foundParent.setChildren(foundChild);
+				foundChild.setParent(foundParent);
+			}
 			done = true;
 		}
 		
-		if(child.getParent().size() < 2){
-			child.setParent(parent);
-		}
 		
 		return done;
 	}
@@ -127,6 +143,32 @@ public class Family {
 		}
 		
 		return person;
+	}
+	
+	public String getParents(String name) {
+		String res = "";
+		Person person = findPerson(name);
+		if(!person.getName().equals("notfound")){
+			ArrayList<Person> parents = person.getParent();
+			for (Person p : parents) {
+				res+=p.getName()+",";
+			}
+		}
+		
+		return res;
+	}
+	
+	public String getChildren(String name) {
+		String res = "[";
+		Person person = findPerson(name);
+		if(!person.getName().equals("notfound")){
+			ArrayList<Person> children = person.getChildren();
+			for (Person p : children) {
+				res+=p.getName()+",";
+			}
+		}
+		
+		return res+"]";
 	}
 	
 }

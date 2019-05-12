@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 
 public class Person {
-	ArrayList<Person> children;
-	ArrayList<Person> parent;
+	ArrayList<Person> children = new ArrayList<Person>();
+	ArrayList<Person> parent = new ArrayList<Person>();
 	
 	Person father;
 	Person mother;
@@ -12,8 +12,6 @@ public class Person {
 	String name;
 
 	public Person(String n) {
-		children = new ArrayList<Person>();
-		parent = new ArrayList<Person>();
 		name = n;
 		gender = "";
 		
