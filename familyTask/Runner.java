@@ -28,8 +28,6 @@ public class Runner {
 //		System.out.println(fam.setParent("Morgan", "Frank"));       // false
 //		// (It is impossible to be the parent of your parent)
 		
-//		AlphabetPosition a = new AlphabetPosition();
-//		System.out.println(a.replaceLetterWithPosition("hello"));
 		
 		
 	
