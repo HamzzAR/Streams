@@ -99,6 +99,7 @@ public class Family {
 		
 		Person parent = new Person(parentName); 
 		Person foundParent = findPerson(parentName);
+			
 		if(foundParent.getName().equals("notFound")){
 			people.add(parent);
 			if(foundChild.getName().equals("notFound")){
@@ -119,19 +120,55 @@ public class Family {
 		}else{
 			if(foundChild.getName().equals("notFound")){
 				foundParent.setChildren(child);
+		
 				if(child.getParent().size() < 3){
 					child.setParent(foundParent);
 				}
+				done = true;
 			}else{
-				foundParent.setChildren(foundChild);
-				foundChild.setParent(foundParent);
+				if(childsChildrenHasParent(foundChild, foundParent) == false && parentParentsHaveChild(foundChild, foundParent) == false){
+					foundParent.setChildren(foundChild);
+					foundChild.setParent(foundParent);
+					done = true;
+				}
 			}
-			done = true;
+			
 		}
-		
-		
+
 		return done;
 	}
+	
+	public boolean childsChildrenHasParent(Person child, Person parent) {
+		boolean res = false;
+		ArrayList<Person> children = child.getChildren();
+		for (Person p : children) {
+			if(p.getName().equals(parent.getName())){
+				res = true;
+				break;
+			}else{
+				res = false;
+			}
+		}
+		
+		return res;
+	}
+	
+	public boolean parentParentsHaveChild(Person child, Person parent) {
+		boolean res = false;
+		ArrayList<Person> parents = parent.getParent();
+		for (Person p : parents) {
+			if(p.getName().equals(child.getName())){
+				res = true;
+				break;
+			}else{
+				res = false;
+			}
+		}
+		
+		return res;
+	}
+	
+	
 	
 	public Person findPerson(String name) {
 		Person person = new Person("notFound");
@@ -146,7 +183,7 @@ public class Family {
 	}
 	
 	public String getParents(String name) {
-		String res = "";
+		String res = "[";
 		Person person = findPerson(name);
 		if(!person.getName().equals("notfound")){
 			ArrayList<Person> parents = person.getParent();
@@ -155,7 +192,7 @@ public class Family {
 			}
 		}
 		
-		return res;
+		return res+"]";
 	}
 	
 	public String getChildren(String name) {
