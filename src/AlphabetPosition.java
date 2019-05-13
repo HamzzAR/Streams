@@ -10,7 +10,7 @@ public class AlphabetPosition {
 			string.toUpperCase()
 			.chars()
 			.map(x -> (int) x-64)
-			.filter(x -> (x>=1 && x<=26))
+			.filter(x -> (x>=1 && x<=26)) 
 			.forEach(x -> sb.append(" "+x));
 			return sb;
 		}

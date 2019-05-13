@@ -10,6 +10,9 @@ public class Family {
 		Person person = findPerson(name);
 		if(!person.getName().equals("notFound")){
 			ArrayList<Person> children = person.getChildren();
+			
+			//children.stream().filter(child -> !child.hasFather());
+
 			for (Person child : children) {
 				if(!child.hasFather()){
 					child.setFather(person);
@@ -183,29 +186,32 @@ public class Family {
 	}
 	
 	public String getParents(String name) {
-		String res = "[";
+		StringBuilder res = new StringBuilder();
+		res.append("[");
 		Person person = findPerson(name);
+		
 		if(!person.getName().equals("notfound")){
 			ArrayList<Person> parents = person.getParent();
-			for (Person p : parents) {
-				res+=p.getName()+",";
-			}
+			parents.stream()
+			.forEach(p -> res.append(p.getName()+","));
 		}
 		
-		return res+"]";
+		res.append("]");
+		return res.toString();
 	}
 	
 	public String getChildren(String name) {
-		String res = "[";
+		StringBuilder res = new StringBuilder();
+		res.append("[");
 		Person person = findPerson(name);
 		if(!person.getName().equals("notfound")){
 			ArrayList<Person> children = person.getChildren();
-			for (Person p : children) {
-				res+=p.getName()+",";
-			}
+			children.stream()
+			.forEach(p -> res.append(p.getName()+","));
 		}
 		
-		return res+"]";
+		res.append("]");
+		return res.toString();
 	}
 	
 }
