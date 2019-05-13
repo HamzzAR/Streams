@@ -5,3 +5,6 @@
   
 - **familyTask** contains the **Family Tree** task
   - tests for this task are in the same folder
+  
+  
+  **Code Coverage** - 84.6%
